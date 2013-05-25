@@ -1,10 +1,23 @@
 class TaskQueuesController < ApplicationController
   before_action :set_task_queue, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
 
   # GET /task_queues
   # GET /task_queues.json
   def index
+    if user_signed_in?
+      user_index
+    else
+      splash_index
+    end
+  end
+
+  def user_index
     @task_queues = TaskQueue.all
+  end
+
+  def splash_index
+    render action: :splash_index
   end
 
   # GET /task_queues/1

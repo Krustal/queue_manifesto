@@ -1,6 +1,6 @@
 class TaskQueue < ActiveRecord::Base
   belongs_to :user
-  has_many :task_nodes
+  has_many :task_nodes, dependent: :destroy
 
   def enqueue(task_node)
     if front.nil? && back.nil?
@@ -29,7 +29,6 @@ class TaskQueue < ActiveRecord::Base
       nil
     end
     next_node_id = task_node.next_node
-    binding.pry
     # set the queue front pointer to this element's next node
     # if it has one.
     if self.front == task_node.id
@@ -46,7 +45,6 @@ class TaskQueue < ActiveRecord::Base
     end
     # save our changes to the records effected on the side
     if self.save! && (parent_node.nil? || parent_node.save!)
-      task_node.destroy
       return true
     else
       return false

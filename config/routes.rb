@@ -1,7 +1,9 @@
 QueueManifesto::Application.routes.draw do
 
   resources :task_queues do
-    resources :task_nodes
+    resources :task_nodes do
+      member { put 'requeue' }
+    end
   end
 
   devise_for :users

@@ -10,6 +10,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -23,6 +24,11 @@
         <td><%= link_to 'Show', task_queue_task_node_path(@task_queue, task_node) %></td>
         <td><%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, task_node) %></td>
         <td><%= link_to 'Destroy', task_queue_task_node_path(@task_queue, task_node), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if @task_queue.front == task_node.id %>
+            <%= link_to 'Requeue', requeue_task_queue_task_node_path(@task_queue, task_node), method: 'put' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

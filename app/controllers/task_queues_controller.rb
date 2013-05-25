@@ -23,7 +23,9 @@ class TaskQueuesController < ApplicationController
   # GET /task_queues/1
   # GET /task_queues/1.json
   def show
-    @front_node = @task_queue.task_nodes.find(@task_queue.front)
+    if @task_queue.front
+      @front_node = @task_queue.task_nodes.find(@task_queue.front)
+    end
   end
 
   # GET /task_queues/new

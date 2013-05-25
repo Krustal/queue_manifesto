@@ -1,7 +1,7 @@
 class TaskNodesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task_queue
-  before_action :set_task_node, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_node, only: [:show, :edit, :update, :destroy, :requeue]
 
   # GET /task_nodes
   # GET /task_nodes.json
@@ -68,10 +68,31 @@ class TaskNodesController < ApplicationController
     end
   end
 
+  # PUT /task_queues/:task_queue/task_nodes/1/requeue
+  def requeue
+    if @task_queue.front == @task_node.id
+      @task_queue.dequeue(@task_node)
+      @task_queue.enqueue(@task_node)
+      @task_node.next_node = nil
+      @task_node.save!
+      respond_to do |format|
+        format.html { redirect_to task_queue_task_nodes_path(@task_queue) }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to(
+        task_queue_task_nodes_path(@task_queue), 
+        alert: "Can't requeue an item that isn't in the front"
+      )
+    end
+  end
+
   # DELETE /task_nodes/1
   # DELETE /task_nodes/1.json
   def destroy
-    @task_queue.dequeue(@task_node)
+    if @task_queue.dequeue(@task_node)
+      @task_node.destroy
+    end
     respond_to do |format|
       format.html { redirect_to task_queue_task_nodes_path(@task_queue) }
       format.json { head :no_content }

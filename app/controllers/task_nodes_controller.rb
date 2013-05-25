@@ -54,7 +54,12 @@ class TaskNodesController < ApplicationController
   def update
     respond_to do |format|
       if @task_node.update(task_node_params)
-        format.html { redirect_to @task_node, notice: 'Task node was successfully updated.' }
+        format.html do 
+          redirect_to(
+            task_queue_task_node_path(@task_queue, @task_node), 
+            notice: 'Task node was successfully updated.'
+          ) 
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -66,7 +71,7 @@ class TaskNodesController < ApplicationController
   # DELETE /task_nodes/1
   # DELETE /task_nodes/1.json
   def destroy
-    @task_node.destroy
+    @task_queue.dequeue(@task_node)
     respond_to do |format|
       format.html { redirect_to task_queue_task_nodes_path(@task_queue) }
       format.json { head :no_content }

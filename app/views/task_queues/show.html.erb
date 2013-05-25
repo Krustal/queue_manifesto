@@ -10,5 +10,16 @@
   <%= @task_queue.name %>
 </p>
 
+<p>
+  <strong>Front:</strong>
+  <%= @task_queue.front %>
+</p>
+
+<p>
+  <strong>Back:</strong>
+  <%= @task_queue.back %>
+</p>
+
+<%= link_to 'Manage Tasks', task_queue_task_nodes_path(@task_queue) %>
 <%= link_to 'Edit', edit_task_queue_path(@task_queue) %> |
 <%= link_to 'Back', task_queues_path %>

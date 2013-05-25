@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @task_node.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task_node.description %>
+</p>
+
+<p>
+  <strong>Next node:</strong>
+  <%= @task_node.next_node %>
+</p>
+
+<p>
+  <strong>Task queue:</strong>
+  <%= @task_node.task_queue_id %>
+</p>
+
+<%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, @task_node) %> |
+<%= link_to 'Back', task_queue_task_nodes_path(@task_queue) %>

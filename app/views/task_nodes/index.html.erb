@@ -1,0 +1,33 @@
+<h1>Listing task_nodes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Next node</th>
+      <th>Task queue</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_nodes.each do |task_node| %>
+      <tr>
+        <td><%= task_node.title %></td>
+        <td><%= task_node.description %></td>
+        <td><%= task_node.next_node %></td>
+        <td><%= task_node.task_queue_id %></td>
+        <td><%= link_to 'Show', task_queue_task_node_path(@task_queue, task_node) %></td>
+        <td><%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, task_node) %></td>
+        <td><%= link_to 'Destroy', task_queue_task_node_path(@task_queue, task_node), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task node', new_task_queue_task_node_path %>

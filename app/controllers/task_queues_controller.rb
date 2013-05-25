@@ -13,7 +13,7 @@ class TaskQueuesController < ApplicationController
   end
 
   def user_index
-    @task_queues = TaskQueue.all
+    @task_queues = current_user.task_queues
   end
 
   def splash_index
@@ -37,7 +37,7 @@ class TaskQueuesController < ApplicationController
   # POST /task_queues
   # POST /task_queues.json
   def create
-    @task_queue = TaskQueue.new(task_queue_params)
+    @task_queue = current_user.task_queues.build(task_queue_params)
 
     respond_to do |format|
       if @task_queue.save
@@ -77,7 +77,10 @@ class TaskQueuesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task_queue
-      @task_queue = TaskQueue.find(params[:id])
+      @task_queue = current_user.task_queues.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # this should probably redirect to a 404, with the option to create
+      redirect_to :root, alert: "You don't have a queue at that path"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

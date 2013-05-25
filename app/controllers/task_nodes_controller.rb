@@ -30,7 +30,7 @@ class TaskNodesController < ApplicationController
 
     respond_to do |format|
       if @task_node.save
-        if @task_queue.push(@task_node)
+        if @task_queue.enqueue(@task_node)
           format.html { redirect_to task_queue_task_node_path(@task_queue, @task_node), notice: 'Task node was successfully created.' }
           format.json { render action: 'show', status: :created, location: @task_node }
         else

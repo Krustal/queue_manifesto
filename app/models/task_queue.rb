@@ -2,7 +2,7 @@ class TaskQueue < ActiveRecord::Base
   belongs_to :user
   has_many :task_nodes
 
-  def push(task_node)
+  def enqueue(task_node)
     if front.nil? && back.nil?
       self.front = task_node.id
       self.back = task_node.id

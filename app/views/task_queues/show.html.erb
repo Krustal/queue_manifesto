@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task_queue.user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @task_queue.name %>
+</p>
+
+<%= link_to 'Edit', edit_task_queue_path(@task_queue) %> |
+<%= link_to 'Back', task_queues_path %>

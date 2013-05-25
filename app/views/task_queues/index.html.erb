@@ -1,0 +1,29 @@
+<h1>Listing task_queues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_queues.each do |task_queue| %>
+      <tr>
+        <td><%= task_queue.user_id %></td>
+        <td><%= task_queue.name %></td>
+        <td><%= link_to 'Show', task_queue %></td>
+        <td><%= link_to 'Edit', edit_task_queue_path(task_queue) %></td>
+        <td><%= link_to 'Destroy', task_queue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task queue', new_task_queue_path %>

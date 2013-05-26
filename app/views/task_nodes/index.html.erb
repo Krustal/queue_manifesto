@@ -19,9 +19,9 @@
   <tbody>
     <% @task_nodes.each do |task_node| %>
       <tr>
-        <td><%= task_node.title %></td>
+        <td><%= "#{task_node.id}:#{task_node.title}" %></td>
         <td><%= task_node.description %></td>
-        <td><%= task_node.next_node %></td>
+        <td><%= task_node.next_node ? "#{task_node.next_node.id}:#{task_node.next_node.title}" : '' %></td>
         <td><%= task_node.task_queue_id %></td>
         <td><%= task_node.complete? %></td>
         <td><%= link_to 'Show', task_queue_task_node_path(@task_queue, task_node) %></td>

@@ -2,7 +2,10 @@ QueueManifesto::Application.routes.draw do
 
   resources :task_queues do
     resources :task_nodes do
-      member { put 'requeue' }
+      member do
+        put 'requeue'
+        put 'complete'
+      end
     end
   end
 

@@ -1,7 +1,7 @@
 class TaskNodesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task_queue
-  before_action :set_task_node, only: [:show, :edit, :update, :destroy, :requeue]
+  before_action :set_task_node, only: [:show, :edit, :update, :destroy, :requeue, :complete]
 
   # GET /task_nodes
   # GET /task_nodes.json
@@ -65,6 +65,30 @@ class TaskNodesController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @task_node.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # PUT /task_queues/1/task_nodes/1/complete
+  def complete
+    if @task_queue.front == @task_node.id
+      @task_queue.dequeue(@task_node)
+      @task_node.complete = true
+      @task_node.next_node = nil
+      if @task_node.save!
+        respond_to do |format|
+          format.html do 
+            redirect_to(
+              task_queue_task_nodes_path(@task_queue),
+              notice: 'task completed'
+            ) 
+          end
+        end
+      end
+    else
+      redirect_to(
+        task_queue_task_nodes_path(@task_queue),
+        alert: 'There was a problem completing the task'
+      )
     end
   end
 

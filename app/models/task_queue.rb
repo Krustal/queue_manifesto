@@ -37,7 +37,7 @@ class TaskQueue < ActiveRecord::Base
     # set the queue back pointer to the element that has this
     # element as a next node, if there is one.
     if self.back == task_node.id
-      self.back = parent_node.id
+      self.back = parent_node ? parent_node.id : nil
     end
     # connect this nodes parent and child if they exist
     if parent_node

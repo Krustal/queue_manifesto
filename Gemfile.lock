@@ -104,6 +104,8 @@ GEM
       pry-docmore
       pry-rescue
       pry-stack_explorer
+    pry-rails (0.3.0)
+      pry (>= 0.9.10)
     pry-rescue (1.1.1)
       interception (>= 0.3)
       pry
@@ -173,6 +175,7 @@ DEPENDENCIES
   jquery-rails
   pg
   pry-plus
+  pry-rails
   rails (= 4.0.0.rc1)
   sass-rails (~> 4.0.0.rc1)
   sdoc

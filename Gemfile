@@ -33,6 +33,7 @@ gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 
 group :development, :test do
   gem 'pry-plus'
+  gem 'pry-rails'
 end
 
 # Use ActiveModel has_secure_password

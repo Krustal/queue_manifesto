@@ -3,10 +3,12 @@
 <h1><%= @task_queue.name %></h1>
 <%= link_to 'Edit', edit_task_queue_path(@task_queue) %>
 <ul>
-  <li class="first_task">
-    <%= link_to @front_node.title, task_queue_task_node_path(@task_queue, @front_node) %>
-    <%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, @front_node) %>
-  </li>
+  <% if @front_node %>
+    <li class="first_task">
+      <%= link_to @front_node.title, task_queue_task_node_path(@task_queue, @front_node) %>
+      <%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, @front_node) %>
+    </li>
+  <% end %>
   <% @additional_tasks.each do |task| %>
     <li>
       <%= link_to task.title, task_queue_task_node_path(@task_queue, task) %>

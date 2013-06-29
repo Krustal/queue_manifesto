@@ -23,6 +23,7 @@ class TaskQueuesController < ApplicationController
   # GET /task_queues/1
   # GET /task_queues/1.json
   def show
+    @additional_tasks = []
     if @task_queue.front
       @front_node = @task_queue.task_nodes.find(@task_queue.front)
       @additional_tasks = @task_queue.task_nodes.where("id != ?", @task_queue.front)

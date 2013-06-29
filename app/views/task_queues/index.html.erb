@@ -1,28 +1,19 @@
 <h1>Your Queues</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<% @task_queues.each do |task_queue| %>
+  <div class="queue_overview queue">
+    <h2><%= link_to task_queue.name, task_queue %></h2>
+    <p><%= link_to 'Edit', edit_task_queue_path(task_queue) %></p>
+    <ul>
+      <% task_queue.task_nodes.take(3).each do |task_node| %>
+        <li><%= task_node.title %></li>
+      <% end %>
+      <li><%= link_to 'New Task node', new_task_queue_task_node_path(task_queue) %></li>
+    </ul>
+    <p><%= link_to 'Destroy', task_queue, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  </div>
+<% end %>
 
-  <tbody>
-    <% @task_queues.each do |task_queue| %>
-      <tr>
-        <td><%= task_queue.user_id %></td>
-        <td><%= task_queue.name %></td>
-        <td><%= link_to 'Show', task_queue %></td>
-        <td><%= link_to 'Edit', edit_task_queue_path(task_queue) %></td>
-        <td><%= link_to 'Destroy', task_queue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 

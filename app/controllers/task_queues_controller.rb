@@ -74,7 +74,7 @@ class TaskQueuesController < ApplicationController
   def destroy
     @task_queue.destroy
     respond_to do |format|
-      format.html { redirect_to task_queues_url }
+      format.html { redirect_to task_queues_url, notice: "#{@task_queue.name} Deleted" }
       format.json { head :no_content }
     end
   end

@@ -1,25 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @task_queue.user_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @task_queue.name %>
-</p>
-
-<p>
-  <strong>Front:</strong>
-  <%= @front_node.title if @front_node %>
-</p>
-
-<p>
-  <strong>Back:</strong>
-  <%= @task_queue.back %>
-</p>
-
-<%= link_to 'Manage Tasks', task_queue_task_nodes_path(@task_queue) %>
-<%= link_to 'Edit', edit_task_queue_path(@task_queue) %> |
-<%= link_to 'Back', task_queues_path %>
+<h1><%= @task_queue.name %></h1>
+<%= link_to 'Edit', edit_task_queue_path(@task_queue) %>
+<ul>
+  <li class="first_task">
+    <%= link_to @front_node.title, task_queue_task_node_path(@task_queue, @front_node) %>
+    <%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, @front_node) %>
+  </li>
+  <% @additional_tasks.each do |task| %>
+    <li>
+      <%= link_to task.title, task_queue_task_node_path(@task_queue, task) %>
+      <%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, task) %>
+    </li>
+  <% end %>
+  <li><%= link_to "New Task", new_task_queue_task_node_path(@task_queue) %></li>
+</ul>

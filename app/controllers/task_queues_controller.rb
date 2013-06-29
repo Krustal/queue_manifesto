@@ -25,6 +25,7 @@ class TaskQueuesController < ApplicationController
   def show
     if @task_queue.front
       @front_node = @task_queue.task_nodes.find(@task_queue.front)
+      @additional_tasks = @task_queue.task_nodes.where("id != ?", @task_queue.front)
     end
   end
 

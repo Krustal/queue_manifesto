@@ -54,11 +54,11 @@ class TaskNodesController < ApplicationController
   def update
     respond_to do |format|
       if @task_node.update(task_node_params)
-        format.html do 
+        format.html do
           redirect_to(
-            task_queue_task_node_path(@task_queue, @task_node), 
+            task_queue_task_node_path(@task_queue, @task_node),
             notice: 'Task node was successfully updated.'
-          ) 
+          )
         end
         format.json { head :no_content }
       else
@@ -76,17 +76,17 @@ class TaskNodesController < ApplicationController
       @task_node.next_node = nil
       if @task_node.save!
         respond_to do |format|
-          format.html do 
+          format.html do
             redirect_to(
-              task_queue_task_nodes_path(@task_queue),
+              task_queue_path(@task_queue),
               notice: 'task completed'
-            ) 
+            )
           end
         end
       end
     else
       redirect_to(
-        task_queue_task_nodes_path(@task_queue),
+        task_queue_path(@task_queue),
         alert: 'There was a problem completing the task'
       )
     end
@@ -100,12 +100,12 @@ class TaskNodesController < ApplicationController
       @task_node.next_node = nil
       @task_node.save!
       respond_to do |format|
-        format.html { redirect_to task_queue_task_nodes_path(@task_queue) }
+        format.html { redirect_to task_queue_path(@task_queue) }
         format.json { head :no_content }
       end
     else
       redirect_to(
-        task_queue_task_nodes_path(@task_queue), 
+        task_queue_path(@task_queue),
         alert: "Can't requeue an item that isn't in the front"
       )
     end
@@ -118,7 +118,7 @@ class TaskNodesController < ApplicationController
       @task_node.destroy
     end
     respond_to do |format|
-      format.html { redirect_to task_queue_task_nodes_path(@task_queue) }
+      format.html { redirect_to task_queue_path(@task_queue), notice: "#{@task_node.title} was deleted" }
       format.json { head :no_content }
     end
   end

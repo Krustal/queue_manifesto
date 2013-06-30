@@ -5,13 +5,23 @@
     <li class="first_task">
       <%= link_to @front_node.title, task_queue_task_node_path(@task_queue, @front_node) %>
       <%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, @front_node) %>
+      <%= link_to 'Delete', task_queue_task_node_path(@task_queue, @front_node), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Complete', complete_task_queue_task_node_path(@task_queue, @front_node), method: 'put' %>
+      <%= link_to 'Requeue', requeue_task_queue_task_node_path(@task_queue, @front_node), method: 'put' %>
     </li>
   <% end %>
   <% @additional_tasks.each do |task| %>
     <li>
       <%= link_to task.title, task_queue_task_node_path(@task_queue, task) %>
       <%= link_to 'Edit', edit_task_queue_task_node_path(@task_queue, task) %>
+      <%= link_to 'Delete', task_queue_task_node_path(@task_queue, task), method: :delete, data: { confirm: 'Are you sure?' } %>
     </li>
   <% end %>
   <li><%= link_to "New Task", new_task_queue_task_node_path(@task_queue) %></li>
+</ul>
+<h2>Completed Tasks</h2>
+<ul>
+  <% @completed_tasks.each do |task| %>
+    <li><%= task.title %></li>
+  <% end %>
 </ul>

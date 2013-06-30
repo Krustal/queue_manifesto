@@ -24,9 +24,11 @@ class TaskQueuesController < ApplicationController
   # GET /task_queues/1.json
   def show
     @additional_tasks = []
+    @completed_tasks = @task_queue.task_nodes.where("complete IS true")
     if @task_queue.front
       @front_node = @task_queue.task_nodes.find(@task_queue.front)
-      @additional_tasks = @task_queue.task_nodes.where("id != ?", @task_queue.front)
+      # all additional active tasks
+      @additional_tasks = @task_queue.task_nodes.where("id != ? AND complete IS false", @task_queue.front)
     end
   end
 

@@ -1,0 +1,63 @@
+div.debug {
+  background: rgb(255, 221, 221);
+  padding: 10px;
+
+  h3 {
+    border-bottom: dashed 2px gray;
+    padding: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+  }
+}
+
+table.debug {
+  border: solid gray 1px;
+  border-collapse: collapse;
+  background: rgba(0, 0, 0, 0.1);
+
+  td, th {
+    border: solid gray 1px;
+    padding: 1px 7px;
+
+    &.foreign-key {
+      &::after{
+        content: ' foreign key';
+        font-size: 11px;
+        color: red;
+      }
+
+      &:empty::after {
+        content: '';
+      }
+    }
+  }
+
+  tbody {
+    border-top: solid 7px rgb(158, 158, 158);
+
+    &.highlighted {
+      background: #ee9;
+    }
+  }
+}
+
+dl.table-key {
+  margin-top: 1px;
+}
+
+dl.debug {
+  font-size: 11px;
+
+  dt {
+    float: left;
+    margin-right: 15px;
+
+    &::after {
+      content: ' - ';
+    }
+  }
+}
+
+#foreign-key-term {
+  color: red;
+}

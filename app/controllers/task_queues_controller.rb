@@ -92,6 +92,6 @@ class TaskQueuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_queue_params
-      params.require(:task_queue).permit(:user_id, :name)
+      params.require(:task_queue).permit(:user_id, :name, :debug)
     end
 end

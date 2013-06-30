@@ -1,0 +1,14 @@
+<% if params.has_key? :debug %>
+<div class="debug">
+  <h3>Debugging</h3>
+
+  <p><strong>Queue</strong></p>
+  <%= debug_table(queue) %>
+
+  <p><strong>In Progress Tasks</strong></p>
+  <%= debug_table(in_progress) %>
+
+  <p><strong>Completed Tasks</strong></p>
+  <%= debug_table(completed) %>
+</div>
+<% end %>

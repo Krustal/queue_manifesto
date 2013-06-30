@@ -1,0 +1,36 @@
+<table class="debug">
+  <thead>
+    <tr>
+    <% objs.first.class.column_names.each do |column| %>
+      <th><%= column %></th>
+    <% end %>
+    <tr>
+  </thead>
+  <% objs.each do |obj| %>
+    <tbody class="record-type-<%= obj.class.to_s.underscore %>" data-pk="<%= obj.id %>">
+      <tr>
+      <% obj.class.column_names.each do |column| %>
+        <% if foreign_keys.include? column %>
+          <% fk_type = foreign_keys[column].underscore %>
+          <% fk_class = "foreign-key" %>
+          <% fk_points = obj.send(column) %>
+          <% if fk_points.respond_to? :id
+            fk_points = fk_points.id
+          end %>
+        <% end %>
+        <td class="<%= fk_class %>" data-fk_type="<%= fk_type %>" data-fk_points="<%= fk_points %>"><%= obj.send(column) %></td>
+      <% end %>
+      </tr>
+      <tr>
+        <th>Object</th>
+        <td colspan="<%= obj.class.column_names.size - 1 %>">
+          <%= obj.inspect %>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
+<dl class="table-key debug">
+  <dt id="foreign-key-term">foreign key</dt>
+  <dd>hover over to highlight the record foreign key points to.</dd>
+</dl>

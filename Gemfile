@@ -33,6 +33,9 @@ end
 
 gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
 
+# For asset support on Heroku
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'pry-plus'
   gem 'pry-rails'

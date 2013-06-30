@@ -10,6 +10,7 @@ module DebugHelper
   end
 
   def debug_table(objs)
+    return '' if objs.blank?
     objs = [objs].flatten
     obj_class = objs.first.class
     foreign_keys = obj_class.reflections.inject({}) do |memo, (*, relation)|
